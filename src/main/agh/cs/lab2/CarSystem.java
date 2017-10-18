@@ -1,5 +1,7 @@
 package agh.cs.lab2;
 
+import java.util.ArrayList;
+
 public class CarSystem {
     public static void main (String args[]) {
         /*
@@ -11,14 +13,10 @@ public class CarSystem {
         */
 
         Car car = new Car();
-        System.out.println(car);
-        car.move(MoveDirection.Right);
-        System.out.println(car);
-        car.move(MoveDirection.Forward);
-        System.out.println(car);
-        car.move(MoveDirection.Forward);
-        System.out.println(car);
-        car.move(MoveDirection.Forward);
-        System.out.println(car);
+        ArrayList<MoveDirection> directionList = OptionsParser.parse(args);
+        for(int i = 0; i < directionList.size(); i++) {
+            car.move(directionList.get(i));
+            System.out.println(car);
+        }
     }
 }
