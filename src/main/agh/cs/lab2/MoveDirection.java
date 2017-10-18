@@ -2,7 +2,7 @@ package agh.cs.lab2;
 
 public enum MoveDirection {
     Forward,
-    Backward,
+    Backwards,
     Right,
     Left
 }
