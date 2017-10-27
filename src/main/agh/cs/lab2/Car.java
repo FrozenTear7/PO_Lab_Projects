@@ -15,6 +15,7 @@ public class Car {
     public Car(IWorldMap map, int x, int y) {
         this.map = map;
         this.currentPosition = new Position(x, y);
+        this.orientation = MapDirection.North;
     }
 
     public Position getPosition() {

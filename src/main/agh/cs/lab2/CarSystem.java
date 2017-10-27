@@ -1,6 +1,6 @@
 package agh.cs.lab2;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class CarSystem {
     public static void main (String args[]) {
@@ -21,8 +21,8 @@ public class CarSystem {
 
         ArrayList<MoveDirection> directionList = OptionsParser.parse(args);
         IWorldMap map = new RectangularMap(10, 5);
-        map.add(new Car(map));
-        map.add(new Car(map,3,4));
-        map.run2(directionList);
+        map.place(new Car(map,3,4));
+        map.run(directionList);
+        System.out.println(map.toString());
     }
 }

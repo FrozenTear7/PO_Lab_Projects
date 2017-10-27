@@ -1,5 +1,7 @@
 package agh.cs.lab2;
 
+import java.util.ArrayList;
+
 /**
  * Interface responsible for interacting with the map of the world.
  *
@@ -32,7 +34,7 @@ public interface IWorldMap {
      * @param directions
      *            Array of move directions.
      */
-    void run(MoveDirection[] directions);
+    void run(ArrayList<MoveDirection> directions);
 
     /**
      * Returns true if given position on the map is occupied. Should not be

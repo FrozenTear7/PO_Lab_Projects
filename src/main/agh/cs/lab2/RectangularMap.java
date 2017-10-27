@@ -7,7 +7,7 @@ public class RectangularMap implements IWorldMap {
     private int width;
     private int height;
     private MapVisualizer visualizer;
-    private List<Car> carList;
+    private ArrayList<Car> carList = new ArrayList<>();
 
     public RectangularMap(int width, int height) {
         this.width = width;
@@ -29,20 +29,18 @@ public class RectangularMap implements IWorldMap {
     }
 
     @Override
-    public void run(MoveDirection[] directions) {
-
-    }
-
-    public void run2(ArrayList<MoveDirection> directions) {
-
+    public void run(ArrayList<MoveDirection> directions) {
+        for(int i = 0; i < directions.size(); i++) {
+            carList.get(i%carList.size()).move(directions.get(i));
+        }
     }
 
     @Override
     public boolean isOccupied(Position position) {
-        if((Boolean) objectAt(position))
-            return false;
-        else
+        if(objectAt(position) == null)
             return true;
+        else
+            return false;
     }
 
     @Override
@@ -51,10 +49,11 @@ public class RectangularMap implements IWorldMap {
             if(car.getPosition().equals(position))
                 return car;
         }
+        return null;
     }
 
     @Override
     public String toString() {
-        return visualizer.dump(map, new Position(0, 0), new Position(width, height));
+        return visualizer.dump(this, new Position(0, 0), new Position(width, height));
     }
 }
