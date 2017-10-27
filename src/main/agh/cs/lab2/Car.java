@@ -3,17 +3,43 @@ package agh.cs.lab2;
 public class Car {
     private MapDirection orientation;
     private Position currentPosition;
-    public Car() {
-        this.orientation = MapDirection.North;
-        this.currentPosition = new Position(2, 2);
+    private IWorldMap map;
+
+    private Car() {
+    }
+
+    public Car(IWorldMap map) {
+        this.map = map;
+    }
+
+    public Car(IWorldMap map, int x, int y) {
+        this.map = map;
+        this.currentPosition = new Position(x, y);
+    }
+
+    public Position getPosition() {
+        return currentPosition;
     }
 
     public String toString() {
-        return "Position: " + currentPosition + ", direction: " + orientation;
+        switch (this.orientation) {
+            case North:
+                return "N";
+            case South:
+                return "S";
+            case West:
+                return "W";
+            case East:
+                return "E";
+            default:
+                return "brak tu typie";
+        }
     }
 
     public void move(MoveDirection direction) {
-        switch(direction) {
+        Position newPosition;
+
+        switch (direction) {
             case Left:
                 orientation = orientation.previous();
                 return;
@@ -23,41 +49,43 @@ public class Car {
             case Forward:
                 switch (orientation) {
                     case North:
-                        if(currentPosition.add(new Position(0, 1)).y <= 4)
-                            currentPosition = currentPosition.add(new Position(0, 1));
-                            return;
+                        newPosition = new Position(0, 1);
+                        break;
                     case South:
-                        if(currentPosition.add(new Position(0, -1)).y >= 0)
-                            currentPosition = currentPosition.add(new Position(0, -1));
-                            return;
+                        newPosition = new Position(0, -1);
+                        break;
                     case East:
-                        if(currentPosition.add(new Position(1, 0)).x <= 4)
-                            currentPosition = currentPosition.add(new Position(1, 0));
-                            return;
+                        newPosition = new Position(1, 0);
+                        break;
                     case West:
-                        if(currentPosition.add(new Position(-1, 0)).y >= 0)
-                            currentPosition = currentPosition.add(new Position(-1, 0));
-                            return;
+                        newPosition = new Position(-1, 0);
+                        break;
+                    default:
+                        newPosition = new Position(0, 0);
                 }
+                if (map.canMoveTo(currentPosition.add(newPosition)))
+                    currentPosition = currentPosition.add(newPosition);
+                break;
             case Backwards:
                 switch (orientation) {
                     case North:
-                        if(currentPosition.add(new Position(0, -1)).y >= 0)
-                            currentPosition = currentPosition.add(new Position(0, -1));
-                            return;
+                        newPosition = new Position(0, -1);
+                        break;
                     case South:
-                        if(currentPosition.add(new Position(0, 1)).y <= 4)
-                            currentPosition = currentPosition.add(new Position(0, 1));
-                            return;
+                        newPosition = new Position(0, 1);
+                        break;
                     case East:
-                        if(currentPosition.add(new Position(-1, 0)).x >= 0)
-                            currentPosition = currentPosition.add(new Position(-1, 0));
-                            return;
+                        newPosition = new Position(-1, 0);
+                        break;
                     case West:
-                        if(currentPosition.add(new Position(1, 0)).y <= 4)
-                            currentPosition = currentPosition.add(new Position(1, 0));
-                            return;
+                        newPosition = new Position(1, 0);
+                        break;
+                    default:
+                        newPosition = new Position(0, 0);
                 }
+                if (map.canMoveTo(currentPosition.add(newPosition)))
+                    currentPosition = currentPosition.add(newPosition);
+                break;
         }
     }
 }

@@ -1,10 +1,11 @@
 package agh.cs.lab2;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class OptionsParser {
-    public static ArrayList<MoveDirection> parse (String R[]) {
-        ArrayList<MoveDirection> R_List = new ArrayList<>();
+    public static List<MoveDirection> parse (String R[]) {
+        List<MoveDirection> R_List = new ArrayList<>();
         for(int i = 0; i < R.length; i++) {
             switch (R[i]) {
                 case "f":
@@ -32,7 +33,6 @@ public class OptionsParser {
                     R_List.add(MoveDirection.Right);
                     break;
                 default:
-                    return null;
             }
         }
 
