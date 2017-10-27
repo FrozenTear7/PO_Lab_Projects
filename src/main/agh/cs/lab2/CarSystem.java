@@ -19,10 +19,10 @@ public class CarSystem {
             System.out.println(car);
         }*/
 
-        MoveDirection[] directions = new OptionsParser().parse(args);
+        ArrayList<MoveDirection> directionList = OptionsParser.parse(args);
         IWorldMap map = new RectangularMap(10, 5);
-        map.place(new Car(map));
-        map.place(new Car(map,3,4));
-        map.run(directions);
+        map.add(new Car(map));
+        map.add(new Car(map,3,4));
+        map.run2(directionList);
     }
 }
