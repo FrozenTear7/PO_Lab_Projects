@@ -6,7 +6,7 @@ import java.util.List;
 public class RectangularMap implements IWorldMap {
     private int width;
     private int height;
-    private MapVisualizer visualizer;
+    private MapVisualizer visualizer = new MapVisualizer();
     private ArrayList<Car> carList = new ArrayList<>();
 
     public RectangularMap(int width, int height) {
@@ -32,6 +32,7 @@ public class RectangularMap implements IWorldMap {
     public void run(ArrayList<MoveDirection> directions) {
         for(int i = 0; i < directions.size(); i++) {
             carList.get(i%carList.size()).move(directions.get(i));
+            System.out.println(carList.get(i%carList.size()));
         }
     }
 
@@ -49,7 +50,7 @@ public class RectangularMap implements IWorldMap {
             if(car.getPosition().equals(position))
                 return car;
         }
-        return null;
+        return "";
     }
 
     @Override

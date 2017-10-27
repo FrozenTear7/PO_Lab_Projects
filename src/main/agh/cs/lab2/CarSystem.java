@@ -22,7 +22,9 @@ public class CarSystem {
         ArrayList<MoveDirection> directionList = OptionsParser.parse(args);
         IWorldMap map = new RectangularMap(10, 5);
         map.place(new Car(map,3,4));
+        map.place(new Car(map,5,2));
+        map.place(new Car(map,4,4));
         map.run(directionList);
-        System.out.println(map.toString());
+        System.out.println(map);
     }
 }

@@ -10,6 +10,8 @@ public class Car {
 
     public Car(IWorldMap map) {
         this.map = map;
+        this.currentPosition = new Position(2, 2);
+        this.orientation = MapDirection.North;
     }
 
     public Car(IWorldMap map, int x, int y) {
@@ -23,7 +25,7 @@ public class Car {
     }
 
     public String toString() {
-        switch (this.orientation) {
+        switch (orientation) {
             case North:
                 return "N";
             case South:
