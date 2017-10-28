@@ -38,10 +38,11 @@ public class RectangularMap implements IWorldMap {
 
     @Override
     public boolean isOccupied(Position position) {
-        if(objectAt(position) == null)
-            return true;
-        else
-            return false;
+        for(Car car : carList) {
+            if(car.getPosition().equals(position))
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -50,7 +51,7 @@ public class RectangularMap implements IWorldMap {
             if(car.getPosition().equals(position))
                 return car;
         }
-        return "";
+        return null;
     }
 
     @Override
