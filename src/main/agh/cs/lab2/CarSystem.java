@@ -19,12 +19,18 @@ public class CarSystem {
             System.out.println(car);
         }*/
 
+        ArrayList<HayStack> hayStackList = new ArrayList<>();
+        hayStackList.add(new HayStack(new Position(2, 2)));
+        hayStackList.add(new HayStack(new Position(4, 8)));
+        hayStackList.add(new HayStack(new Position(-5, 14)));
+
         ArrayList<MoveDirection> directionList = OptionsParser.parse(args);
-        IWorldMap map = new RectangularMap(10, 5);
-        map.place(new Car(map,3,4));
-        map.place(new Car(map,5,2));
-        map.place(new Car(map,4,4));
-        map.run(directionList);
-        System.out.println(map);
+        //IWorldMap map = new RectangularMap(10, 5);
+        IWorldMap unboundedMap = new UnboundedMap(hayStackList);
+        unboundedMap.place(new Car(unboundedMap,3,4));
+        unboundedMap.place(new Car(unboundedMap,5,2));
+        unboundedMap.place(new Car(unboundedMap,4,4));
+        unboundedMap.run(directionList);
+        System.out.println(unboundedMap);
     }
 }
