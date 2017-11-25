@@ -1,15 +1,16 @@
 package agh.cs.lab2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class UnboundedMap extends AbstractWorldMap implements IWorldMap {
+public class UnboundedMap extends AbstractWorldMap {
     private MapVisualizer visualizer = new MapVisualizer();
-    private ArrayList<HayStack> hayStackList;
+    private HashMap<Position, HayStack> hayStackMap;
     private Position downLeftCorner, upRightCorner;
 
-    public UnboundedMap (ArrayList<HayStack> newHayStackList) {
+    public UnboundedMap (HashMap<Position, HayStack> newHayStackMap) {
         super();
-        this.hayStackList = newHayStackList;
+        this.hayStackMap = newHayStackMap;
     }
 
     @Override
@@ -22,12 +23,16 @@ public class UnboundedMap extends AbstractWorldMap implements IWorldMap {
 
     @Override
     public boolean isOccupied(Position position) {
-        for(Car car : carList) {
+        for(HashMap.Entry<Position, Car> entry : carMap.entrySet()) {
+            Car car = entry.getValue();
+
             if(car.getPosition().equals(position))
                 return true;
         }
 
-        for(HayStack hayStack : hayStackList) {
+        for(HashMap.Entry<Position, HayStack> entry : hayStackMap.entrySet()) {
+            HayStack hayStack = entry.getValue();
+
             if(hayStack.getPosition().equals(position))
                 return true;
         }
@@ -37,12 +42,16 @@ public class UnboundedMap extends AbstractWorldMap implements IWorldMap {
 
     @Override
     public Object objectAt(Position position) {
-        for(Car car : carList) {
+        for(HashMap.Entry<Position, Car> entry : carMap.entrySet()) {
+            Car car = entry.getValue();
+
             if(car.getPosition().equals(position))
                 return car;
         }
 
-        for(HayStack hayStack : hayStackList) {
+        for(HashMap.Entry<Position, HayStack> entry : hayStackMap.entrySet()) {
+            HayStack hayStack = entry.getValue();
+
             if(hayStack.getPosition().equals(position))
                 return hayStack;
         }
@@ -53,7 +62,9 @@ public class UnboundedMap extends AbstractWorldMap implements IWorldMap {
     private void setCorners() {
         int maxUp = Integer.MIN_VALUE, maxDown = Integer.MAX_VALUE, maxLeft = Integer.MAX_VALUE, maxRight = Integer.MIN_VALUE;
 
-        for(Car car : carList) {
+        for(HashMap.Entry<Position, Car> entry : carMap.entrySet()) {
+            Car car = entry.getValue();
+
             if(car.getPosition().x > maxRight)
                 maxRight = car.getPosition().x;
             if(car.getPosition().x < maxLeft)
@@ -64,7 +75,9 @@ public class UnboundedMap extends AbstractWorldMap implements IWorldMap {
                 maxDown = car.getPosition().y;
         }
 
-        for(HayStack hayStack : hayStackList) {
+        for(HashMap.Entry<Position, HayStack> entry : hayStackMap.entrySet()) {
+            HayStack hayStack = entry.getValue();
+
             if(hayStack.getPosition().x > maxRight)
                 maxRight = hayStack.getPosition().x;
             if(hayStack.getPosition().x < maxLeft)

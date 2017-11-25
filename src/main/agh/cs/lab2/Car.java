@@ -1,9 +1,12 @@
 package agh.cs.lab2;
 
+import java.util.ArrayList;
+
 public class Car {
     private MapDirection orientation;
     private Position currentPosition;
     private IWorldMap map;
+    private ArrayList<IPositionChangeObserver> observerList = new ArrayList<>();
 
     private Car() {
     }
@@ -40,7 +43,7 @@ public class Car {
     }
 
     public void move(MoveDirection direction) {
-        Position newPosition;
+        Position newPosition, tempPosition;
 
         switch (direction) {
             case Left:
@@ -86,9 +89,26 @@ public class Car {
                     default:
                         newPosition = new Position(0, 0);
                 }
-                if (map.canMoveTo(currentPosition.add(newPosition)))
-                    currentPosition = currentPosition.add(newPosition);
+                if (map.canMoveTo(currentPosition.add(newPosition))) {
+                    tempPosition = currentPosition.add(newPosition);
+                    positionChanged(currentPosition, tempPosition);
+                    currentPosition = tempPosition;
+                }
                 break;
+        }
+    }
+
+    public void addObserver(IPositionChangeObserver observer) {
+        observerList.add(observer);
+    }
+
+    public void removeObserver(IPositionChangeObserver observer) {
+        observerList.remove(observer);
+    }
+
+    private void positionChanged(Position oldPosition, Position newPosition) {
+        for(IPositionChangeObserver observer : observerList) {
+            observer.positionChanged(oldPosition, newPosition);
         }
     }
 }

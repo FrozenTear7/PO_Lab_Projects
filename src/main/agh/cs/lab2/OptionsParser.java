@@ -32,6 +32,7 @@ public class OptionsParser {
                     R_List.add(MoveDirection.Right);
                     break;
                 default:
+                    throw new IllegalArgumentException(R[i] + " is not legal move specification");
             }
         }
 

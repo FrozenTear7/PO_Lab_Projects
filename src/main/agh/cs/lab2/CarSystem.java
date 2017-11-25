@@ -1,6 +1,7 @@
 package agh.cs.lab2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CarSystem {
     public static void main (String args[]) {
@@ -18,19 +19,22 @@ public class CarSystem {
             car.move(directionList.get(i));
             System.out.println(car);
         }*/
+        try {
+            HashMap<Position, HayStack> hayStackMap = new HashMap<>();
+            hayStackMap.put(new Position(2, 2), new HayStack(new Position(2, 2)));
+            hayStackMap.put(new Position(2, 2), new HayStack(new Position(2, 2)));
+            hayStackMap.put(new Position(-5, 14), new HayStack(new Position(-5, 14)));
 
-        ArrayList<HayStack> hayStackList = new ArrayList<>();
-        hayStackList.add(new HayStack(new Position(2, 2)));
-        hayStackList.add(new HayStack(new Position(4, 8)));
-        hayStackList.add(new HayStack(new Position(-5, 14)));
-
-        ArrayList<MoveDirection> directionList = OptionsParser.parse(args);
-        //IWorldMap map = new RectangularMap(10, 5);
-        IWorldMap unboundedMap = new UnboundedMap(hayStackList);
-        unboundedMap.place(new Car(unboundedMap,3,4));
-        unboundedMap.place(new Car(unboundedMap,5,2));
-        unboundedMap.place(new Car(unboundedMap,4,4));
-        unboundedMap.run(directionList);
-        System.out.println(unboundedMap);
+            ArrayList<MoveDirection> directionList = OptionsParser.parse(args);
+            //IWorldMap map = new RectangularMap(10, 5);
+            IWorldMap unboundedMap = new UnboundedMap(hayStackMap);
+            unboundedMap.place(new Car(unboundedMap, 3, 4));
+            unboundedMap.place(new Car(unboundedMap, 2, 4));
+            unboundedMap.place(new Car(unboundedMap, 4, 4));
+            unboundedMap.run(directionList);
+            System.out.println(unboundedMap);
+        } catch (IllegalArgumentException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 }

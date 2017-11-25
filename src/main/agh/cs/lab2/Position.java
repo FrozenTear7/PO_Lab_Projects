@@ -16,6 +16,24 @@ public class Position {
         return (position.x >= this.x && position.y >= this.y);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Position position = (Position) o;
+
+        if (x != position.x) return false;
+        return y == position.y;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        return result;
+    }
+
     public boolean larger (Position position) {
         return (position.x <= this.x && position.y <= this.y);
     }
@@ -24,7 +42,4 @@ public class Position {
         return new Position(this.x+position.x, this.y+position.y);
     }
 
-    public boolean equals (Position position) {
-        return (position.x == this.x && position.y == this.y);
-    }
 }

@@ -1,8 +1,9 @@
 package agh.cs.lab2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class RectangularMap extends AbstractWorldMap implements IWorldMap {
+public class RectangularMap extends AbstractWorldMap {
     private int width;
     private int height;
     private MapVisualizer visualizer = new MapVisualizer();
@@ -23,16 +24,21 @@ public class RectangularMap extends AbstractWorldMap implements IWorldMap {
 
     @Override
     public boolean isOccupied(Position position) {
-        for(Car car : carList) {
+        for(HashMap.Entry<Position, Car> entry : carMap.entrySet()) {
+            Car car = entry.getValue();
+
             if(car.getPosition().equals(position))
                 return true;
         }
+
         return false;
     }
 
     @Override
     public Object objectAt(Position position) {
-        for(Car car : carList) {
+        for(HashMap.Entry<Position, Car> entry : carMap.entrySet()) {
+            Car car = entry.getValue();
+
             if(car.getPosition().equals(position))
                 return car;
         }
