@@ -1,3 +1,1 @@
-# PO_Lab_Projects
-
-Siemanerko tutaj twoje PO przyjechało.
+# Object-oriented programming classes, AGH WIEiT 2017/2018
